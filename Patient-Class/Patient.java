@@ -14,7 +14,7 @@ public class Patient {
     // ─── Static ID counter ─────────────────────────────────────────────────
 
     /** Auto-increments every time a new Patient is created. */
-    private static int idCounter = 1;
+    private static int idCounter = 0; // Why was this in 1? Shouldn't we start from 0, and as the patients come in, then idCounter++
 
 
     // ─── Fields ────────────────────────────────────────────────────────────
@@ -189,8 +189,31 @@ public class Patient {
      *
      * @param index  Zero-based position of the entry to remove
      */
-    public void deleteHistoryEntry(int index) {
-        // TODO
+      public void deleteHistoryEntry(int index) {
+        if (historyHead == null) {
+            System.out.println("Error: Empty list.");
+            return;
+        }
+        if (index == 0) {
+            historyHead = historyHead.next;
+            return;
+        }
+
+        int idx = 0;
+        MedicalHistoryNode it = historyHead;
+        while (idx < index - 1) {
+            it = it.next;
+            idx++;
+            if (it == null) {
+                System.out.println("Error: index out of range");
+                return;
+            }
+        }
+        if (it.next == null) {
+            System.out.println("Error: index out of range");
+            return;
+        }
+        it.next = it.next.next;
     }
 
     /**
@@ -199,8 +222,13 @@ public class Patient {
      * Hint: traverse the list and count nodes. Return 0 if list is empty.
      */
     public int historySize() {
-        // TODO
-        return 0;
+        int size = 0;
+        MedicalHistoryNode it = historyHead;
+        while (it != null) {
+            size++;
+            it = it.next;
+        }
+        return size;
     }
 
     /**
@@ -226,8 +254,22 @@ public class Patient {
      */
     @Override
     public String toString() {
-        // TODO
-        return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return "[" + id + "] " + name + " | Age: " + age + " | Severity: " + severity + " | Symptoms: " + symptoms + " | Arrived: " + arrivalTime.format(formatter);
+    }
+
+    public void printRecord() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        System.out.println("╔══════════════════════════════════════╗");
+        System.out.println("║          PATIENT RECORD              ║");
+        System.out.println("╠══════════════════════════════════════╣");
+        System.out.println("║ ID       : " + id);
+        System.out.println("║ Name     : " + name);
+        System.out.println("║ Age      : " + age);
+        System.out.println("║ Severity : " + severity);
+        System.out.println("║ Symptoms : " + symptoms);
+        System.out.println("║ Arrived  : " + arrivalTime.format(formatter));
+        System.out.println("╚══════════════════════════════════════╝");
     }
 
     /**
