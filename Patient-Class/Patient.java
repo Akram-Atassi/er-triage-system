@@ -1,0 +1,254 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Patient
+ *
+ * Represents a single patient in the ER system.
+ * Owns a singly-linked medical history list built from MedicalHistoryNode.
+ *
+ * Used by: EmergencyRoom, Queue, HashTable, BinarySearchTree
+ */
+public class Patient {
+
+    // ─── Static ID counter ─────────────────────────────────────────────────
+
+    /** Auto-increments every time a new Patient is created. */
+    private static int idCounter = 1;
+
+
+    // ─── Fields ────────────────────────────────────────────────────────────
+
+    private String id;               // Unique ID, format: P001, P002, ...
+    private String name;             // Full name
+    private int    age;              // Age in years
+    private int    severity;         // Triage level: 1 (Emergency) to 4 (Expectant)
+    private String symptoms;         // Free-text symptom description
+    private LocalDateTime arrivalTime;  // Set at construction time
+
+    /** Head of the singly-linked medical history list. Null when empty. */
+    private MedicalHistoryNode historyHead;
+
+
+    // ─── Constructor ───────────────────────────────────────────────────────
+
+    /**
+     * Creates a new Patient and auto-assigns a unique ID.
+     * @param name      Full name (must not be blank)
+     * @param age       Age in years (must be > 0)
+     * @param severity  Triage level 1–4 (throws if out of range)
+     * @param symptoms  Description of presenting symptoms
+     */
+    public Patient(String name, int age, int severity, String symptoms) {
+        // Sanity checks, Name must be non-blank, Age must be positive, Severity must be 1-4.
+            if (name == null || name.isBlank()) {
+                throw new IllegalArgumentException("Name must not be blank.");
+            }
+            if (age <= 0) {
+                throw new IllegalArgumentException("Age must be a positive integer.");
+            }
+            if (severity < 1 || severity > 4) {
+                throw new IllegalArgumentException("Severity must be between 1 and 4.");
+            }
+
+        // Sanity checks completed, assign fields.
+        this.id = generateId(this.name);
+        this.name = name;
+        this.age = age;
+        this.severity = severity;
+        this.symptoms = symptoms;
+        this.arrivalTime = LocalDateTime.now();
+        this.historyHead = null;
+        idCounter++;  // Increment the static ID counter for the next patient.
+    }
+
+    /// ─── Setters ───────────────────────────────────────────────────────────
+
+    // Create setter for ID using ASCII values.
+        private static String generateId(String name) {
+        int asciiSum = 0;
+        for (char c : name.toCharArray()) {
+            asciiSum += (int) c;
+        }
+        return String.format("P%03d", asciiSum);
+    }
+
+
+    // ─── Getters ───────────────────────────────────────────────────────────
+
+    public String getId()           { return this.id; }
+    public String getName()         { return this.name; }
+    public int    getAge()          { return this.age; }
+    public int    getSeverity()     { return this.severity; }
+    public String getSymptoms()     { return this.symptoms; }
+    public LocalDateTime getArrivalTime() { return this.arrivalTime; }
+
+
+    // ─── Severity label ────────────────────────────────────────────────────
+
+    /**
+     * Returns the human-readable triage name for this patient's severity level.
+     *
+     * 1 → "P1 - Emergency/Immediate"
+     * 2 → "P2 - Urgent"
+     * 3 → "P3 - Delayed"
+     * 4 → "P4 - Expectant"
+     * anything else → "Unknown"
+        */
+
+    public String getSeverityLabel() {
+        int severity = getSeverity();
+        if(severity == 1){
+            return "P1 - Emergency/Immediate";
+        }
+        else if(severity == 2){
+            return "P2 - Urgent";
+        }
+        else if(severity == 3){
+            return "P3 - Delayed";
+        }
+        else if(severity == 4){
+            return "P4 - Expectant";
+        }
+
+        return "Unknown";
+    }
+
+
+    // ─── Medical history (linked list operations) ──────────────────────────
+
+    /**
+     * Appends a new medical event to the END of the history list.
+     *
+     * Algorithm:
+     *   1. Create a new MedicalHistoryNode with next = null
+     *   2. If historyHead is null → this node becomes the head
+     *   3. Otherwise → traverse to the tail (while node.next != null)
+     *      and set tail.next = newNode
+     *
+     * @param entry  Description of the medical event (skip if null or blank)
+     */
+    public void addMedicalHistory(String entry) {
+        new MedicalHistoryNode(entry);
+
+        if (entry == null) {
+            return;                                                        // Edge case, if entry is null, do not add to history.
+        }
+
+        if (historyHead == null) {
+            historyHead = new MedicalHistoryNode(entry);                       // If history is empty, new node becomes head.
+            return;
+        }
+
+        MedicalHistoryNode current = historyHead;                                      // Start traversal from head.
+        while (current.next != null) {                                               // Traverse to the end of the list.
+            current = current.next;
+        }
+
+        current.next = new MedicalHistoryNode(entry);
+    }
+
+    /**
+     * Prints the full medical history, numbered from oldest to newest.
+     *
+     * Expected output format:
+     *   === Medical History for [name] ===
+     *   1. Allergy: Penicillin
+     *   2. Visit 2023-05-15: Chest pain
+     *   3. Medication: Lisinopril 10mg
+     *
+     * If historyHead is null, print:
+     *   "No medical history on record."
+        */
+
+    public void printMedicalHistory() {
+
+        if (historyHead == null) {
+            System.out.println("No medical history on record.");
+            return;
+        }
+
+        System.out.println("=== Medical History for " + name + " ===");
+        MedicalHistoryNode current = historyHead;
+        int counter = 1;
+        while (current != null) {
+            System.out.println(counter + ") " + current.entry);
+            current = current.next;
+            counter++;
+        }
+    }
+
+    /**
+     * Removes the medical history entry at the given index (0-based).
+     *
+     * Cases to handle:
+     *   - index == 0  → update historyHead = historyHead.next
+     *   - index > 0   → traverse to node at (index - 1), then
+     *                   prev.next = prev.next.next
+     *   - out of range or empty list → print error, do nothing
+     *
+     * @param index  Zero-based position of the entry to remove
+     */
+    public void deleteHistoryEntry(int index) {
+        // TODO
+    }
+
+    /**
+     * Returns the number of entries in the medical history.
+     *
+     * Hint: traverse the list and count nodes. Return 0 if list is empty.
+     */
+    public int historySize() {
+        // TODO
+        return 0;
+    }
+
+    /**
+     * Returns the head node of the medical history list.
+     * Used externally when another class needs to traverse the history directly.
+     */
+    public MedicalHistoryNode getHistoryHead() {
+        // TODO
+        return null;
+    }
+
+
+    // ─── Display ───────────────────────────────────────────────────────────
+
+    /**
+     * Returns a compact one-line summary of this patient.
+     *
+     * Example:
+     *   "[P001] John Smith | Age: 45 | P2 - Urgent | Arrived: 14:23:01"
+     *
+     * Hint: format arrivalTime with:
+     *   DateTimeFormatter.ofPattern("HH:mm:ss")
+     */
+    @Override
+    public String toString() {
+        // TODO
+        return null;
+    }
+
+    /**
+     * Prints a full multi-line patient record to stdout.
+     *
+     * Example output:
+     *   ╔══════════════════════════════╗
+     *   ║  PATIENT RECORD              ║
+     *   ╠══════════════════════════════╣
+     *   ║  ID       : P001             ║
+     *   ║  Name     : John Smith       ║
+     *   ║  Age      : 45               ║
+     *   ║  Severity : P2 - Urgent      ║
+     *   ║  Symptoms : Chest pain       ║
+     *   ║  Arrived  : 2024-01-15 14:23 ║
+     *   ╚══════════════════════════════╝
+     *
+     * This is called when a doctor "calls" a patient from the queue.
+     */
+    public void printFullRecord() {
+        // TODO
+    }
+}
+
