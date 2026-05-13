@@ -128,15 +128,15 @@ public class Patient {
      *
      * @param entry  Description of the medical event (skip if null or blank)
      */
-    public void addMedicalHistory(String entry) {
-        new MedicalHistoryNode(entry);
+    public void addMedicalHistory(String entry, MedicalHistoryNode next) { // you were missing the next pointer that is defined in MedicalHistoryNode.java, and it was throwing an error
+        new MedicalHistoryNode(entry, next);
 
         if (entry == null) {
             return;                                                        // Edge case, if entry is null, do not add to history.
         }
 
         if (historyHead == null) {
-            historyHead = new MedicalHistoryNode(entry);                       // If history is empty, new node becomes head.
+            historyHead = new MedicalHistoryNode(entry, next);                       // If history is empty, new node becomes head.
             return;
         }
 
@@ -145,7 +145,7 @@ public class Patient {
             current = current.next;
         }
 
-        current.next = new MedicalHistoryNode(entry);
+        current.next = new MedicalHistoryNode(entry, next);
     }
 
     /**
