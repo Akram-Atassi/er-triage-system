@@ -34,7 +34,7 @@ public class PatientQueue {
     }
 
 
-    // ─── Fields ────────────────────────────────────────────────────────────
+    // ─── Fields ──────────────────────────────────────────────────────────
 
     /** The node at the front of the line — next to be dequeued. */
     private QueueNode front;
@@ -43,7 +43,7 @@ public class PatientQueue {
     private QueueNode back;
 
     /** Running count of patients currently waiting. */
-    private int size;
+    private int count;
 
 
     // ─── Constructor ───────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ public class PatientQueue {
     public PatientQueue() {
         this.front = null;
         this.back  = null;
-        this.size  = 0;
+        this.count = 0;
     }
 
 
@@ -85,7 +85,7 @@ public class PatientQueue {
             this.back.next = p;
             this.back = p;
         }
-        this.size++;
+        this.count++;
     }
 
     /**
@@ -109,7 +109,7 @@ public class PatientQueue {
         }
         Patient p = this.front.patient;
         this.front = this.front.next;
-        this.size--;
+        this.count--;
         return p;
     }
 
@@ -120,7 +120,7 @@ public class PatientQueue {
      * @return  The front patient, or null if the queue is empty
      */
     public Patient peek() {
-        if (this.front == null) return "No patients in queue";
+        if (this.front == null) return null;
         return this.front.patient;
     }
 
@@ -139,11 +139,11 @@ public class PatientQueue {
      * Returns the number of patients currently in the queue.
      */
     public int size() {
-        return this.size;
+        return this.count;
     }
 
 
-    // ─── Display ───────────────────────────────────────────────────────────
+    // ─── Display ──────────────────────────────────────────────────────────
 
     /**
      * Prints every patient in the queue from front to rear, numbered by position.
@@ -165,24 +165,24 @@ public class PatientQueue {
      */
     public void display() {
         if (this.front == null) {
-            throw new IllegalArgumentException("Waiting room is empty");
-            
+            System.out.println("Waiting room is empty.");
+            return;
         }
 
         System.out.println("╔══════════════════════════════════════════════════╗");
-        System.out.println("║           WAITING ROOM — " + size + " patient(s)           ║");
+        System.out.println("║           WAITING ROOM — " + count + " patient(s)           ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
 
         QueueNode it = this.front;
-        int count = 1;
+        int position = 1;
         while (it != null) {
-            if (count == 1) {
-                System.out.println("║ " + count + " [NEXT] " + it.patient.toString() + " ║");
+            if (position == 1) {
+                System.out.println("║ " + position + " [NEXT] " + it.patient.toString() + " ║");
             } else {
-                System.out.println("║ " + count + "        " + it.patient.toString() + " ║");
+                System.out.println("║ " + position + "        " + it.patient.toString() + " ║");
             }
             it = it.next;
-            count++;
+            position++;
         }
 
         System.out.println("╚══════════════════════════════════════════════════╝");
