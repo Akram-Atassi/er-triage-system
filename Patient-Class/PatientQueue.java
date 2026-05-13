@@ -165,7 +165,7 @@ public class PatientQueue {
      */
     public void display() {
         if (this.front == null) {
-            System.out.println("Waiting room is empty.");
+            throw new IllegalArgumentException("Waiting room is empty");
             return;
         }
 
