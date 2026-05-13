@@ -120,7 +120,7 @@ public class PatientQueue {
      * @return  The front patient, or null if the queue is empty
      */
     public Patient peek() {
-        if (this.front == null) return null;
+        if (this.front == null) return "No patients in queue";
         return this.front.patient;
     }
 
