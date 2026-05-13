@@ -247,8 +247,5 @@ public class Patient {
      *
      * This is called when a doctor "calls" a patient from the queue.
      */
-    public void printFullRecord() {
-        // TODO
-    }
 }
 
