@@ -75,7 +75,7 @@ public class PatientQueue {
     public void enqueue(Patient patient) {
         if (patient == null) {
             throw new IllegalArgumentException("Patient value is null");
-            return;
+            
         }
         QueueNode p = new QueueNode(patient);
         if (this.front == null) {
