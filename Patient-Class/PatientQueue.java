@@ -104,7 +104,7 @@ public class PatientQueue {
      */
     public Patient dequeue() {
         if (this.front == null) {
-            System.out.println("Error: line is empty");
+            throw new IllegalArgumentException("Line is empty");
             return null;
         }
         Patient p = this.front.patient;
