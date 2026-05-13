@@ -34,7 +34,7 @@ public class PatientQueue {
     }
 
 
-    // ─── Fields ────────────────────────────────────────────────────────────
+    // ─── Fields ──────────────────────────────────────────────────────────
 
     /** The node at the front of the line — next to be dequeued. */
     private QueueNode front;
@@ -143,7 +143,7 @@ public class PatientQueue {
     }
 
 
-    // ─── Display ───────────────────────────────────────────────────────────
+    // ─── Display ──────────────────────────────────────────────────────────
 
     /**
      * Prints every patient in the queue from front to rear, numbered by position.
@@ -168,7 +168,6 @@ public class PatientQueue {
             System.out.println("Waiting room is empty.");
             return;
             }
-            
         }
 
         System.out.println("╔══════════════════════════════════════════════════╗");
