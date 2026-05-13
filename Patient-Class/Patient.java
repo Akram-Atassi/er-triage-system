@@ -11,13 +11,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class Patient {
 
-    // ─── Static ID counter ─────────────────────────────────────────────────
+    // ─── Static ID counter and Patient Database ─────────────────────────────
 
-    /** Auto-increments every time a new Patient is created. */
-    private static int idCounter = 0; // Why was this in 1? Shouldn't we start from 0, and as the patients come in, then idCounter++
+    /** Tracks how many patients are CURRENTLY in the ER. */
+    private static int idCounter = 0;
+
+    /** Binary Search Tree database storing patient records. */
+    /** Key: "name|age", Value: patient ID (e.g., "P001") */
+    private static BinarySearchTree<String, String> patientDatabase = new BinarySearchTree<>();
 
 
-    // ─── Fields ────────────────────────────────────────────────────────────
+    // ─── Fields ───────────────────────────────────────────────────────────
 
     private String id;               // Unique ID, format: P001, P002, ...
     private String name;             // Full name
@@ -52,7 +56,7 @@ public class Patient {
             }
 
         // Sanity checks completed, assign fields.
-        this.id = generateId(this.name);
+        this.id = generateId(name, age);
         this.name = name;
         this.age = age;
         this.severity = severity;
@@ -62,19 +66,44 @@ public class Patient {
         idCounter++;  // Increment the static ID counter for the next patient.
     }
 
-    /// ─── Setters ───────────────────────────────────────────────────────────
+    /// ─── ID Generation ────────────────────────────────────────────────────
 
-    // Create setter for ID using ASCII values.
-        private static String generateId(String name) {
-        int asciiSum = 0;
-        for (char c : name.toCharArray()) {
-            asciiSum += (int) c;
+    /**
+     * Generates or retrieves a patient ID.
+     * 
+     * Algorithm:
+     *   1. Create a patient key using "name|age" combination
+     *   2. Search the BST database for existing patient record
+     *   3. If found → return their existing ID (recurring patient)
+     *   4. If not found → generate new ID using current idCounter,
+     *                     insert into BST, and return new ID
+     *
+     * @param name  Patient's full name
+     * @param age   Patient's age
+     * @return      Patient ID in format "P###"
+     */
+    private static String generateId(String name, int age) {
+        String patientKey = name + "|" + age;
+        
+        // Search BST for existing patient
+        String existingId = patientDatabase.search(patientKey);
+        
+        if (existingId != null) {
+            // Patient already exists in database, return their ID
+            return existingId;
         }
-        return String.format("P%03d", asciiSum);
+        
+        // New patient - generate new ID
+        String newId = String.format("P%03d", idCounter);
+        
+        // Insert into BST database
+        patientDatabase.insert(patientKey, newId);
+        
+        return newId;
     }
 
 
-    // ─── Getters ───────────────────────────────────────────────────────────
+    // ─── Getters ──────────────────────────────────────────────────────────
 
     public String getId()           { return this.id; }
     public String getName()         { return this.name; }
@@ -236,7 +265,7 @@ public class Patient {
     }
 
 
-    // ─── Display ───────────────────────────────────────────────────────────
+    // ─── Display ──────────────────────────────────────────────────────────
 
     /**
      * Returns a compact one-line summary of this patient.
@@ -285,4 +314,3 @@ public class Patient {
      * This is called when a doctor "calls" a patient from the queue.
      */
 }
-
