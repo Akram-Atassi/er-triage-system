@@ -132,7 +132,7 @@ public class Patient {
         new MedicalHistoryNode(entry);
 
         if (entry == null) {
-            return;                                                        // Edge case, if entry is null, do not add to history.
+            throw new IllegalArgumentException("The input is empty");             // Edge case, if entry is null, do not add to history.
         }
 
         if (historyHead == null) {
@@ -164,8 +164,7 @@ public class Patient {
     public void printMedicalHistory() {
 
         if (historyHead == null) {
-            System.out.println("No medical history on record.");
-            return;
+            throw new IllegalArgumentException("No medical history on record");
         }
 
         System.out.println("=== Medical History for " + name + " ===");
@@ -191,8 +190,7 @@ public class Patient {
      */
       public void deleteHistoryEntry(int index) {
         if (historyHead == null) {
-            System.out.println("Error: Empty list.");
-            return;
+            throw new IllegalArgumentException("The list is empty");
         }
         if (index == 0) {
             historyHead = historyHead.next;
@@ -205,13 +203,11 @@ public class Patient {
             it = it.next;
             idx++;
             if (it == null) {
-                System.out.println("Error: index out of range");
-                return;
+                throw new IllegalArgumentException("The index is out of range");
             }
         }
         if (it.next == null) {
-            System.out.println("Error: index out of range");
-            return;
+            throw new IllegalArgumentException("The index is out of range");
         }
         it.next = it.next.next;
     }
@@ -236,7 +232,6 @@ public class Patient {
      * Used externally when another class needs to traverse the history directly.
      */
     public MedicalHistoryNode getHistoryHead() {
-        // TODO
         return null;
     }
 
@@ -289,8 +284,5 @@ public class Patient {
      *
      * This is called when a doctor "calls" a patient from the queue.
      */
-    public void printFullRecord() {
-        // TODO
-    }
 }
 
