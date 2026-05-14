@@ -109,6 +109,7 @@ public class PatientQueue {
         }
         Patient p = this.front.patient;
         this.front = this.front.next;
+        if (this.front == null) this.back = null;
         this.count--;
         return p;
     }
@@ -167,7 +168,6 @@ public class PatientQueue {
         if (this.front == null) {
             System.out.println("Waiting room is empty.");
             return;
-            }
         }
 
         System.out.println("╔══════════════════════════════════════════════════╗");

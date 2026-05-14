@@ -27,7 +27,8 @@ public class MedicalHistoryNode {
      * @param next   The next node in the list, or null if this is the last one
      */
     public MedicalHistoryNode(String entry, MedicalHistoryNode next) {
-        // TODO: assign entry and next to their fields
+        this.entry = entry;
+        this.next = next;
     }
 
 
@@ -36,23 +37,22 @@ public class MedicalHistoryNode {
     /**
      * Returns the text content of this node.
      */
-    public String getEntry(String entry) {
-        return entry;
+    public String getEntry() {
+        return this.entry;
     }
 
     /**
      * Returns the next node in the list.
      */
     public MedicalHistoryNode getNext() {
-        // TODO: return next
-        return null;
+        return this.next;
     }
 
     /**
      * Sets the next pointer. Used during list insertion and deletion.
      */
     public void setNext(MedicalHistoryNode next) {
-        // TODO: assign next
+        this.next = next;
     }
 
 
@@ -64,7 +64,6 @@ public class MedicalHistoryNode {
      */
     @Override
     public String toString() {
-        // TODO: return the entry string
-        return null;
+        return this.entry;
     }
 }

@@ -157,24 +157,21 @@ public class Patient {
      *
      * @param entry  Description of the medical event (skip if null or blank)
      */
-    public void addMedicalHistory(String entry, MedicalHistoryNode next) { // you were missing the next pointer that is defined in MedicalHistoryNode.java, and it was throwing an error
-        new MedicalHistoryNode(entry, next);
-
-        if (entry == null) {
-            throw new IllegalArgumentException("The input is empty");             // Edge case, if entry is null, do not add to history.
-        }
-
-        if (historyHead == null) {
-            historyHead = new MedicalHistoryNode(entry, next);                       // If history is empty, new node becomes head.
+    public void addMedicalHistory(String entry) {
+        if (entry == null || entry.isBlank()) {
             return;
         }
 
-        MedicalHistoryNode current = historyHead;                                      // Start traversal from head.
-        while (current.next != null) {                                               // Traverse to the end of the list.
-            current = current.next;
+        if (historyHead == null) {
+            historyHead = new MedicalHistoryNode(entry, null);
+            return;
         }
 
-        current.next = new MedicalHistoryNode(entry, next);
+        MedicalHistoryNode current = historyHead;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = new MedicalHistoryNode(entry, null);
     }
 
     /**
@@ -193,7 +190,8 @@ public class Patient {
     public void printMedicalHistory() {
 
         if (historyHead == null) {
-            throw new IllegalArgumentException("No medical history on record");
+            System.out.println("No medical history on record.");
+            return;
         }
 
         System.out.println("=== Medical History for " + name + " ===");
@@ -261,7 +259,7 @@ public class Patient {
      * Used externally when another class needs to traverse the history directly.
      */
     public MedicalHistoryNode getHistoryHead() {
-        return null;
+        return historyHead;
     }
 
 
