@@ -39,7 +39,7 @@ public class PatientStack {
     /** The node at the top of the stack — most recently pushed action. */
     private StackNode top;
 
-    /** Running count of actions itly stored on the stack. */
+    /** Running count of actions currently stored on the stack. */
     private int size;
 
 
@@ -70,6 +70,10 @@ public class PatientStack {
      * @param record  The action that just occurred
      */
     public void push(ActionRecord record) {
+        if (record == null) {
+            System.out.println("Error: cannot push a null record.");
+            return;
+        }
         StackNode p = new StackNode(record);
         p.next = this.top;
         this.top = p;
@@ -121,7 +125,7 @@ public class PatientStack {
     }
 
     /**
-     * Returns the number of actions itly stored on the stack.
+     * Returns the number of actions currently stored on the stack.
      */
     public int size() {
         return this.size;

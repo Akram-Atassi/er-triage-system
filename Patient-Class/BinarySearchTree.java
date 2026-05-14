@@ -177,7 +177,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> {
             node.value = successor.value;
             // Delete the successor node from right subtree
             node.right = deleteHelper(node.right, successor.key);
-            size++; // Compensate for the extra decrement in delete()
         }
 
         return node;
