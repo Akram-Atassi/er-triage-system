@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a single patient in the ER system.
  * Owns a singly-linked medical history list built from MedicalHistoryNode.
  *
- * Used by: EmergencyRoom, Queue, HashTable, BinarySearchTree
+ * Used by: EmergencyRoom, Queue, HashT_LookUp
  */
 public class Patient {
 
@@ -16,9 +16,9 @@ public class Patient {
     /** Tracks how many patients are CURRENTLY in the ER. */
     private static int idCounter = 0;
 
-    /** Binary Search Tree database storing patient records. */
+    /** Hash table database storing patient records. */
     /** Key: "name|age", Value: patient ID (e.g., "P001") */
-    private static BinarySearchTree<String, String> patientDatabase = new BinarySearchTree<>();
+    private static HashT_LookUp<String, String> patientDatabase = new HashT_LookUp<>(16);
 
 
     // ─── Fields ───────────────────────────────────────────────────────────
@@ -63,7 +63,6 @@ public class Patient {
         this.symptoms = symptoms;
         this.arrivalTime = LocalDateTime.now();
         this.historyHead = null;
-        idCounter++;  // Increment the static ID counter for the next patient.
     }
 
     /// ─── ID Generation ────────────────────────────────────────────────────
@@ -73,10 +72,10 @@ public class Patient {
      * 
      * Algorithm:
      *   1. Create a patient key using "name|age" combination
-     *   2. Search the BST database for existing patient record
+     *   2. Search the hash table for existing patient record
      *   3. If found → return their existing ID (recurring patient)
      *   4. If not found → generate new ID using current idCounter,
-     *                     insert into BST, and return new ID
+     *                     insert into hash table, and return new ID
      *
      * @param name  Patient's full name
      * @param age   Patient's age
@@ -85,7 +84,7 @@ public class Patient {
     private static String generateId(String name, int age) {
         String patientKey = name + "|" + age;
         
-        // Search BST for existing patient
+        // Search hash table for existing patient
         String existingId = patientDatabase.search(patientKey);
         
         if (existingId != null) {
@@ -95,10 +94,11 @@ public class Patient {
         
         // New patient - generate new ID
         String newId = String.format("P%03d", idCounter);
-        
-        // Insert into BST database
+        idCounter++;
+
+        // Insert into hash table
         patientDatabase.insert(patientKey, newId);
-        
+
         return newId;
     }
 
