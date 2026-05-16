@@ -17,8 +17,8 @@
 public class HashT_LookUp<K, V> {
 
 
-    private static final int DEFAULT_CAPACITY = 0; // Example
-    private static final double MAX_LOAD_FACTOR = 0; // Example
+    private static final int DEFAULT_CAPACITY = 16; // Example
+    private static final double MAX_LOAD_FACTOR = 1.25; // Example
 
     /**
      * A single key-value pair stored in one bucket chain.
@@ -231,7 +231,6 @@ public class HashT_LookUp<K, V> {
         HashNode[] oldBuckets = buckets;
         buckets = (HashNode[]) new HashT_LookUp.HashNode[oldBuckets.length * 2];
 
-        int oldSize = size;
         size = 0;
 
         for (int i = 0; i < oldBuckets.length; i++) {
