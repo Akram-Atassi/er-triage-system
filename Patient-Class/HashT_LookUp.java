@@ -211,7 +211,7 @@ public class HashT_LookUp<K, V> {
      * Converts a key hash code into a valid bucket index.
      */
     private int getBucketIndex(K key) { // This is the hashing method bascially.
-        return Math.abs(key.hashCode() % buckets.length);
+        return ((key.hashCode() % buckets.length) + buckets.length) % buckets.length; 
     }
 
     /**
