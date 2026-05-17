@@ -221,26 +221,3 @@ public class HashT_LookUp<K, V> {
         // It's unecessary delete it.
         return (double) size / buckets.length;
     }
-
-    /**
-     * Doubles the number of buckets and re-inserts existing entries.
-     */
-    @SuppressWarnings("unchecked")
-    private void resize() {
-        // Same thing that resizing the array when full, but with the HashTable.
-        HashNode[] oldBuckets = buckets;
-        buckets = (HashNode[]) new HashT_LookUp.HashNode[oldBuckets.length * 2];
-
-        size = 0;
-
-        for (int i = 0; i < oldBuckets.length; i++) {
-            HashNode current = oldBuckets[i];
-            while (current != null) {
-                insert(current.key, current.value);
-                current = current.next;
-            }
-        }
-
-        size = oldSize;
-    }
-}

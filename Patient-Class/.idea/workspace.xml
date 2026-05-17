@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4df4030-0257-46d7-954d-d9ef070de1b3" name="Changes" comment="N/A">
+    <list default="true" id="e4df4030-0257-46d7-954d-d9ef070de1b3" name="Changes" comment="resolved the agreed upon changes in the pull request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HashT_LookUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/HashT_LookUp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,31 +31,31 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GitHubPullRequestState"><![CDATA[{
-  "prStates": [
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
     {
-      "id": {
-        "id": "PR_kwDOSbNJFc7ay2Yy",
-        "number": 6
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOSbNJFc7ay2Yy&quot;,
+        &quot;number&quot;: 6
       },
-      "lastSeen": 1778772332077
+      &quot;lastSeen&quot;: 1778772332077
     },
     {
-      "id": {
-        "id": "PR_kwDOSbNJFc7bkTyS",
-        "number": 18
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOSbNJFc7bkTyS&quot;,
+        &quot;number&quot;: 18
       },
-      "lastSeen": 1778772339430
+      &quot;lastSeen&quot;: 1778772339430
     },
     {
-      "id": {
-        "id": "PR_kwDOSbNJFc7bxFTv",
-        "number": 19
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOSbNJFc7bxFTv&quot;,
+        &quot;number&quot;: 19
       },
-      "lastSeen": 1778916319073
+      &quot;lastSeen&quot;: 1778916392087
     }
   ]
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Akram-Atassi/er-triage-system.git&quot;,
@@ -153,6 +152,14 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e4df4030-0257-46d7-954d-d9ef070de1b3" name="Changes" comment="" />
@@ -166,7 +173,8 @@
       <workItem from="1778769769702" duration="2737000" />
       <workItem from="1778828006562" duration="3239000" />
       <workItem from="1778837980859" duration="3000" />
-      <workItem from="1778912738653" duration="1582000" />
+      <workItem from="1778912738653" duration="2093000" />
+      <workItem from="1778916924642" duration="26000" />
     </task>
     <task id="LOCAL-00001" summary="Added new branch">
       <option name="closed" value="true" />
@@ -192,16 +200,36 @@
       <option name="project" value="LOCAL" />
       <updated>1778830604511</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="resolved the agreed upon changes in the pull request">
+      <option name="closed" value="true" />
+      <created>1778916345855</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778916345855</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added new branch" />
     <MESSAGE value="Quick fundemental changes in all files." />
     <MESSAGE value="N/A" />
-    <option name="LAST_COMMIT_MESSAGE" value="N/A" />
+    <MESSAGE value="resolved the agreed upon changes in the pull request" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolved the agreed upon changes in the pull request" />
   </component>
 </project>
