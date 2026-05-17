@@ -76,10 +76,6 @@ public class HashT_LookUp<K, V> {
             throw new IllegalArgumentException("Value cannot be null.");
         }
 
-        if (loadFactor() >= MAX_LOAD_FACTOR) {
-            resize();
-        }
-
         int index = getBucketIndex(key);
         HashNode current = buckets[index];
 
@@ -207,11 +203,12 @@ public class HashT_LookUp<K, V> {
         this.buckets = (HashNode[]) new HashT_LookUp.HashNode[buckets.length];
         this.size = 0;
     }
+
     /**
      * Converts a key hash code into a valid bucket index.
      */
     private int getBucketIndex(K key) { // This is the hashing method bascially.
-        return ((key.hashCode() % buckets.length) + buckets.length) % buckets.length; 
+        return ((key.hashCode() % buckets.length) + buckets.length) % buckets.length;
     }
 
     /**
@@ -221,3 +218,4 @@ public class HashT_LookUp<K, V> {
         // It's unecessary delete it.
         return (double) size / buckets.length;
     }
+}

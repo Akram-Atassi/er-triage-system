@@ -16,8 +16,10 @@ public class Patient {
     /** Tracks how many patients are CURRENTLY in the ER. */
     private static int idCounter = 0;
 
-    /** Hash table database storing patient records. */
-    /** Key: "name|age", Value: patient ID (e.g., "P001") */
+    /** Monotonically increasing counter used only for generating unique IDs. */
+    private static int nextId = 0;
+
+    /** Hash table database storing patient records. Key: "name|age", Value: patient ID (e.g., "P001") */
     private static HashT_LookUp<String, String> patientDatabase = new HashT_LookUp<>(16);
 
 
@@ -62,10 +64,9 @@ public class Patient {
         this.severity = severity;
         this.symptoms = symptoms;
         this.arrivalTime = LocalDateTime.now();
-        this.historyHead = null;
     }
 
-    /// ─── ID Generation ────────────────────────────────────────────────────
+    // ─── ID Generation ────────────────────────────────────────────────────
 
     /**
      * Generates or retrieves a patient ID.
@@ -74,7 +75,7 @@ public class Patient {
      *   1. Create a patient key using "name|age" combination
      *   2. Search the hash table for existing patient record
      *   3. If found → return their existing ID (recurring patient)
-     *   4. If not found → generate new ID using current idCounter,
+     *   4. If not found → generate new ID using current nextId,
      *                     insert into hash table, and return new ID
      *
      * @param name  Patient's full name
@@ -93,8 +94,8 @@ public class Patient {
         }
         
         // New patient - generate new ID
-        String newId = String.format("P%03d", idCounter);
-        idCounter++;
+        String newId = String.format("P%03d", nextId);
+        nextId++;
 
         // Insert into hash table
         patientDatabase.insert(patientKey, newId);
@@ -113,6 +114,13 @@ public class Patient {
     public LocalDateTime getArrivalTime() { return this.arrivalTime; }
 
 
+    // ─── ER Census ────────────────────────────────────────────────────────
+
+    public static void admit()           { idCounter++; }
+    public static void discharge()       { if (idCounter > 0) idCounter--; }
+    public static int  getCurrentCount() { return idCounter; }
+
+
     // ─── Severity label ────────────────────────────────────────────────────
 
     /**
@@ -126,7 +134,6 @@ public class Patient {
         */
 
     public String getSeverityLabel() {
-        int severity = getSeverity();
         if(severity == 1){
             return "P1 - Emergency/Immediate";
         }
@@ -198,7 +205,7 @@ public class Patient {
         MedicalHistoryNode current = historyHead;
         int counter = 1;
         while (current != null) {
-            System.out.println(counter + ") " + current.entry);
+            System.out.println(counter + ". " + current.entry);
             current = current.next;
             counter++;
         }
@@ -211,11 +218,14 @@ public class Patient {
      *   - index == 0  → update historyHead = historyHead.next
      *   - index > 0   → traverse to node at (index - 1), then
      *                   prev.next = prev.next.next
-     *   - out of range or empty list → print error, do nothing
+     *   - out of range or empty list → throw IllegalArgumentException
      *
      * @param index  Zero-based position of the entry to remove
      */
-      public void deleteHistoryEntry(int index) {
+    public void deleteHistoryEntry(int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Index must not be negative");
+        }
         if (historyHead == null) {
             throw new IllegalArgumentException("The list is empty");
         }
@@ -277,7 +287,7 @@ public class Patient {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return "[" + id + "] " + name + " | Age: " + age + " | Severity: " + severity + " | Symptoms: " + symptoms + " | Arrived: " + arrivalTime.format(formatter);
+        return "[" + id + "] " + name + " | Age: " + age + " | " + getSeverityLabel() + " | Symptoms: " + symptoms + " | Arrived: " + arrivalTime.format(formatter);
     }
 
     public void printRecord() {
@@ -288,27 +298,10 @@ public class Patient {
         System.out.println("║ ID       : " + id);
         System.out.println("║ Name     : " + name);
         System.out.println("║ Age      : " + age);
-        System.out.println("║ Severity : " + severity);
+        System.out.println("║ Severity : " + getSeverityLabel());
         System.out.println("║ Symptoms : " + symptoms);
         System.out.println("║ Arrived  : " + arrivalTime.format(formatter));
         System.out.println("╚══════════════════════════════════════╝");
     }
 
-    /**
-     * Prints a full multi-line patient record to stdout.
-     *
-     * Example output:
-     *   ╔══════════════════════════════╗
-     *   ║  PATIENT RECORD              ║
-     *   ╠══════════════════════════════╣
-     *   ║  ID       : P001             ║
-     *   ║  Name     : John Smith       ║
-     *   ║  Age      : 45               ║
-     *   ║  Severity : P2 - Urgent      ║
-     *   ║  Symptoms : Chest pain       ║
-     *   ║  Arrived  : 2024-01-15 14:23 ║
-     *   ╚══════════════════════════════╝
-     *
-     * This is called when a doctor "calls" a patient from the queue.
-     */
 }

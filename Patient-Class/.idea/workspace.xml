@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4df4030-0257-46d7-954d-d9ef070de1b3" name="Changes" comment="resolved the agreed upon changes in the pull request">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e4df4030-0257-46d7-954d-d9ef070de1b3" name="Changes" comment="Removed the resize function">
+      <change beforePath="$PROJECT_DIR$/HashT_LookUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/HashT_LookUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PatientQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/PatientQueue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,31 +33,31 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GitHubPullRequestState">{
-  &quot;prStates&quot;: [
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOSbNJFc7ay2Yy&quot;,
-        &quot;number&quot;: 6
+      "id": {
+        "id": "PR_kwDOSbNJFc7ay2Yy",
+        "number": 6
       },
-      &quot;lastSeen&quot;: 1778772332077
+      "lastSeen": 1778772332077
     },
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOSbNJFc7bkTyS&quot;,
-        &quot;number&quot;: 18
+      "id": {
+        "id": "PR_kwDOSbNJFc7bkTyS",
+        "number": 18
       },
-      &quot;lastSeen&quot;: 1778772339430
+      "lastSeen": 1778772339430
     },
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOSbNJFc7bxFTv&quot;,
-        &quot;number&quot;: 19
+      "id": {
+        "id": "PR_kwDOSbNJFc7bxFTv",
+        "number": 19
       },
-      &quot;lastSeen&quot;: 1778916392087
+      "lastSeen": 1778996978738
     }
   ]
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Akram-Atassi/er-triage-system.git&quot;,
@@ -65,6 +67,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="3.90790964924385E-189" />
+      <entry key="S2" value="3.0208703716503158E-47" />
+      <entry key="S5" value="7.23076573845408E-19" />
+      <entry key="S10" value="2.1508320545443453E-9" />
+      <entry key="S30" value="0.005854840157774415" />
+      <entry key="S60" value="0.27353656314423275" />
+      <entry key="M2" value="1.9338848619207494" />
+      <entry key="M5" value="6.324373923238244" />
+      <entry key="M10" value="9.40521849362594" />
+      <entry key="M15" value="10.737671208743889" />
+      <entry key="M30" value="12.260170865333622" />
+      <entry key="H1" value="13.101066481398382" />
+      <entry key="H2" value="13.54303300535138" />
+      <entry key="H4" value="13.769609842975788" />
+      <entry key="D1" value="13.961334100872014" />
+      <entry key="W1" value="13.994469712292492" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.0" />
+      <entry key="H2" value="1.0" />
+      <entry key="H4" value="1.0" />
+      <entry key="D1" value="1.0" />
+      <entry key="W1" value="1.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="6.779641765568272E-11" />
+      <entry key="MS500" value="0.009252121967606504" />
+      <entry key="S2" value="0.31014182442884725" />
+      <entry key="S5" value="0.6260717892235862" />
+      <entry key="S10" value="0.7912469858555317" />
+      <entry key="S30" value="0.9307731752942432" />
+      <entry key="S60" value="1.2352284440348396" />
+      <entry key="M2" value="2.914428396134097" />
+      <entry key="M5" value="7.316418726171974" />
+      <entry key="M10" value="10.401187792635794" />
+      <entry key="M15" value="11.734969174885368" />
+      <entry key="M30" value="13.258811429676575" />
+      <entry key="H1" value="14.100384455367035" />
+      <entry key="H2" value="14.542691387742801" />
+      <entry key="H4" value="14.769438879440434" />
+      <entry key="D1" value="14.961305585148196" />
+      <entry key="W1" value="14.994465638079658" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
@@ -175,6 +236,7 @@
       <workItem from="1778837980859" duration="3000" />
       <workItem from="1778912738653" duration="2093000" />
       <workItem from="1778916924642" duration="26000" />
+      <workItem from="1778996903703" duration="1936000" />
     </task>
     <task id="LOCAL-00001" summary="Added new branch">
       <option name="closed" value="true" />
@@ -208,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778916345855</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Removed the resize function">
+      <option name="closed" value="true" />
+      <created>1778997098065</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778997098065</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +300,7 @@
     <MESSAGE value="Quick fundemental changes in all files." />
     <MESSAGE value="N/A" />
     <MESSAGE value="resolved the agreed upon changes in the pull request" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolved the agreed upon changes in the pull request" />
+    <MESSAGE value="Removed the resize function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the resize function" />
   </component>
 </project>
