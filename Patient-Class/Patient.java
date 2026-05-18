@@ -290,6 +290,27 @@ public class Patient {
         return "[" + id + "] " + name + " | Age: " + age + " | " + getSeverityLabel() + " | Symptoms: " + symptoms + " | Arrived: " + arrivalTime.format(formatter);
     }
 
+    /**
+     * Prints all patients sorted by severity (P1 first), then alphabetically by name within each level.
+     * Accepts any iterable source of Patient objects (queue traversal, list, etc.).
+     */
+    public static void printSortedBySeverity(Iterable<Patient> patients) {
+        BinarySearchTree<String, Patient> bst = new BinarySearchTree<>();
+        for (Patient p : patients) {
+            // Key: "severity|name|id" — severity sorts 1→4, name breaks ties, id ensures uniqueness
+            String key = p.getSeverity() + "|" + p.getName() + "|" + p.getId();
+            bst.insert(key, p);
+        }
+
+        System.out.println("╔══════════════════════════════════════╗");
+        System.out.println("║    PATIENTS SORTED BY SEVERITY       ║");
+        System.out.println("╠══════════════════════════════════════╣");
+        for (Patient p : bst.inOrderList()) {
+            System.out.println("║ " + p);
+        }
+        System.out.println("╚══════════════════════════════════════╝");
+    }
+
     public void printRecord() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println("╔══════════════════════════════════════╗");

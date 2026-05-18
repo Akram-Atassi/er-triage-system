@@ -9,6 +9,9 @@
  * @param <K> Key type (must be Comparable)
  * @param <V> Value type
  */
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<K extends Comparable<K>, V> {
 
     /**
@@ -216,5 +219,21 @@ public class BinarySearchTree<K extends Comparable<K>, V> {
     public void clear() {
         root = null;
         size = 0;
+    }
+
+    /**
+     * Returns all values in ascending key order via in-order traversal.
+     */
+    public List<V> inOrderList() {
+        List<V> result = new ArrayList<>();
+        inOrderHelper(root, result);
+        return result;
+    }
+
+    private void inOrderHelper(Node node, List<V> result) {
+        if (node == null) return;
+        inOrderHelper(node.left, result);
+        result.add(node.value);
+        inOrderHelper(node.right, result);
     }
 }
