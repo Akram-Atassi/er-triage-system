@@ -64,18 +64,17 @@ public class PatientQueue {
      * Adds a patient to the REAR of the queue (new arrival joins the line).
      *
      * Algorithm:
-     *   1. If patient is null → print error and return (guard clause)
+     *   1. If patient is null → throw IllegalArgumentException (guard clause)
      *   2. Wrap patient in a new QueueNode
      *   3. If the queue is empty → front AND rear both point to the new node
      *   4. Otherwise → rear.next = newNode, then move rear forward to newNode
-     *   5. Increment size
+     *   5. Increment count
      *
      * @param patient  The arriving patient to add to the queue
      */
     public void enqueue(Patient patient) {
         if (patient == null) {
             throw new IllegalArgumentException("Patient value is null");
-            
         }
         QueueNode p = new QueueNode(patient);
         if (this.front == null) {
@@ -86,6 +85,7 @@ public class PatientQueue {
             this.back = p;
         }
         this.count++;
+        Patient.admit();
     }
 
     /**
@@ -93,24 +93,25 @@ public class PatientQueue {
      * This is called when a doctor is ready for the next patient.
      *
      * Algorithm:
-     *   1. If queue is empty → print "Waiting room is empty." and return null
+     *   1. If queue is empty → throw IllegalArgumentException
      *   2. Save reference to front.patient (this is what you will return)
      *   3. Advance front to front.next
      *   4. If front is now null → the queue is empty, so rear must also be null
-     *   5. Decrement size
+     *   5. Decrement count
      *   6. Return the saved patient
      *
-     * @return  The next patient in line, or null if the queue is empty
+     * @return  The next patient in line
+     * @throws  IllegalArgumentException if the queue is empty
      */
     public Patient dequeue() {
         if (this.front == null) {
             throw new IllegalArgumentException("Line is empty");
-            
         }
         Patient p = this.front.patient;
         this.front = this.front.next;
         if (this.front == null) this.back = null;
         this.count--;
+        Patient.discharge();
         return p;
     }
 
@@ -132,8 +133,7 @@ public class PatientQueue {
      * Returns true if no patients are currently waiting.
      */
     public boolean isEmpty() {
-        if (this.front == null) return true;
-        return false;
+        return this.front == null;
     }
 
     /**
@@ -178,9 +178,9 @@ public class PatientQueue {
         int position = 1;
         while (it != null) {
             if (position == 1) {
-                System.out.println("║ " + position + " [NEXT] " + it.patient.toString() + " ║");
+                System.out.println("║ " + position + " [NEXT] " + it.patient + " ║");
             } else {
-                System.out.println("║ " + position + "        " + it.patient.toString() + " ║");
+                System.out.println("║ " + position + "        " + it.patient + " ║");
             }
             it = it.next;
             position++;
